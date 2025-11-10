@@ -2,13 +2,14 @@
   "name": "FlxScaledSliceSprite",
   "url": "https://github.com/tracedinpurple/flxscaledslicesprite",
   "license": "MIT",
-  "tags": ["flixel", "ui", "sprite", "scale"],
+  "tags": ["flixel", "flixel-addons", "ui", "sprite", "scale"],
   "description": "An extension to the FlxSliceSprite class that adds better scaling support.",
   "version": "0.0.2",
   "releasenote": "Fixed some issues when scaling and updating the hitbox of a sliced sprite.",
   "contributors": ["TracedInPurple"],
   "dependencies": {
     "flixel": "",
+    "flixel-addons": "",
     "openfl": ""
   },
   "classPath": "src"
