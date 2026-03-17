@@ -23,14 +23,25 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 
 		Call `updateSlicedHitbox()` whenver you change the width or height of the sprite!
 	**/
-	public function new(asset:FlxGraphic, baseSliceRect:FlxRect, scaleMult:Int = 1, width:Float = -1, height:Float = -1) 
+	public function new(asset:FlxGraphic, baseSliceRect:FlxRect, scaleMult:Float = 1, width:Float = -1, height:Float = -1) 
 	{
 		// Load the original bitmap/graphic
 		var rawGraphic = FlxG.bitmap.add(asset);
 		var originalBitmap = rawGraphic.bitmap;
-
-		var scaledBitmap = new BitmapData(originalBitmap.width * scaleMult, originalBitmap.height * scaleMult, true, 0x0);
+		
 		var matrix = new Matrix(scaleMult, 0, 0, scaleMult); // it works so i won't touch it lol
+
+		var scaledWidth:Int = Math.round(originalBitmap.width * scaleMult);
+		var scaledHeight:Int = Math.round(originalBitmap.height * scaleMult);
+
+		/**
+		 * Since BitmapData requires the width to be an integer (for whatever reason)
+		 * we simply round the width/height when multiplied by the scaleMult
+		 * allowing us to use Floats as scaling values!!!
+		 * 
+		 * Just make sure to also round the slice rectangle to avoid inconsistencies!
+		 */
+		var scaledBitmap = new BitmapData(scaledWidth, scaledHeight, true, 0x0);
 		scaledBitmap.draw(originalBitmap, matrix);
 
 		// Add the upscaled bitmap to the cache
@@ -38,13 +49,17 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 
 		// Scale the slice rect accordingly
 		var scaledSliceRect = new FlxRect(
-			baseSliceRect.x * scaleMult,
-			baseSliceRect.y * scaleMult,
-			baseSliceRect.width * scaleMult,
-			baseSliceRect.height * scaleMult
+			Math.round(baseSliceRect.x * scaleMult),
+			Math.round(baseSliceRect.y * scaleMult),
+			Math.round(baseSliceRect.width * scaleMult),
+			Math.round(baseSliceRect.height * scaleMult)
 		);
 
-		// If no width/height are provided, use native scaled size
+		/**
+		 * If no width and/or height is defined, it will take the original width/height multiplied by the factor!
+		 * So if the original width is 200px and the factor is 2
+		 * Meaning: If no width is specified, the final width of the sprite will be 400px etc...
+		 */
 		if (width <= 0) width = scaledBitmap.width;
 		if (height <= 0) height = scaledBitmap.height;
 
