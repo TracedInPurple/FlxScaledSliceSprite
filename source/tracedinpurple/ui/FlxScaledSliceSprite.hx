@@ -1,5 +1,6 @@
 package tracedinpurple.ui;
 
+import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.addons.display.FlxSliceSprite;
 import flixel.math.FlxRect;
 import flixel.FlxG;
@@ -23,7 +24,7 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 
 		Call `updateSlicedHitbox()` whenver you change the width or height of the sprite!
 	**/
-	public function new(asset:FlxGraphic, baseSliceRect:FlxRect, scaleMult:Float = 1, width:Float = -1, height:Float = -1) 
+	public function new(asset:FlxGraphicAsset, baseSliceRect:FlxRect, scaleMult:Float = 1, width:Float = -1, height:Float = -1) 
 	{
 		// Load the original bitmap/graphic
 		var rawGraphic = FlxG.bitmap.add(asset);
