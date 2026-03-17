@@ -1,0 +1,6 @@
+-cp source
+-cp test
+-lib flixel
+-lib flixel-addons
+-lib openfl
+-main Main
