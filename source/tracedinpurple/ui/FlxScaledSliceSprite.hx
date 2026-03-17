@@ -1,4 +1,4 @@
-package;
+package tracedinpurple.ui;
 
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxG;
@@ -87,6 +87,19 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 	{
 		stretchLeft = stretchTop = stretchRight = stretchBottom = stretchCenter = true;
 	}
+
+	public function stretchNone():Void
+	{
+		stretchLeft = stretchTop = stretchRight = stretchBottom = stretchCenter = true;
+	}
+
+	public function resize(width:Float, height:Float):Void
+	{
+		this.width = width;
+		this.height = height;
+		updateSlicedHitbox();
+	}
+
 
 	/**
 		Updates the new hitbox of the sliced sprite.
