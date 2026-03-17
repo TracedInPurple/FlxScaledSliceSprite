@@ -4,13 +4,12 @@
   "license": "MIT",
   "tags": ["flixel", "flixel-addons", "ui", "sprite", "scale"],
   "description": "An extension to the FlxSliceSprite class that adds better scaling support.",
-  "version": "0.0.2",
-  "releasenote": "Fixed some issues when scaling and updating the hitbox of a sliced sprite.",
+  "version": "0.1.0",
+  "releasenote": "Added Caching, switched to FlxGraphicAsset, scaleMult Int -> Float",
   "contributors": ["TracedInPurple"],
   "dependencies": {
     "flixel": "",
-    "flixel-addons": "",
-    "openfl": ""
+    "flixel-addons": ""
   },
-  "classPath": "src"
+  "classPath": "source"
 }

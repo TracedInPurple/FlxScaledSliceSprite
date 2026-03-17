@@ -1,35 +1,37 @@
-package tracedinpurple.ui;
+package;
 
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import flixel.addons.display.FlxSliceSprite;
-import flixel.math.FlxRect;
 import flixel.FlxG;
+import flixel.addons.display.FlxSliceSprite;
 import flixel.graphics.FlxGraphic;
+import flixel.math.FlxRect;
 import openfl.display.BitmapData;
 import openfl.geom.Matrix;
 
 /**
  * Small extension to FlxSliceSprite.
- * Simply allows you to scale the Texture you want to slice instead of loading a *bigger* version of said texture.
- * Despite having a very niche use it works great if you're working with a GUI/UI scale (Minecraft for example)
+ * Simply allows you to scale the Texture you want to slice instead of loading a *bigger* version of said texture
+ * Despite having a very niche use it works great if you're woring with a GUI/UI scale (Minecraft for example)
  */
 class FlxScaledSliceSprite extends FlxSliceSprite 
 {
 	/**
-		@param asset Graphic you want to slice
-		@param baseSliceRect Rectangle that defines the slice grid
-		@param scaleMult Scales the bitmap of your original graphic
-		@param width The width of your slice object
-		@param height The height of your slice object
-
-		Call `updateSlicedHitbox()` whenver you change the width or height of the sprite!
+	 * Creates a new Sliced Sprite.
+	 * NOTE: `updateSlicedHitbox()` whenever you change the width or height of the sprite!
+	 * 
+	 * @param asset Graphic you want to slice
+	 * @param baseSliceRect Rectangle that defines the slice grid
+	 * @param scaleMult Scales the bitmap of your original graphic
+	 * @param width The width of your slice object
+	 * @param height The height of your slice object
+	 * 
 	**/
 	public function new(asset:FlxGraphicAsset, baseSliceRect:FlxRect, scaleMult:Float = 1, width:Float = -1, height:Float = -1) 
 	{
 		// Load the original bitmap/graphic
 		var rawGraphic = FlxG.bitmap.add(asset);
 		var originalBitmap = rawGraphic.bitmap;
-		
+
 		var matrix = new Matrix(scaleMult, 0, 0, scaleMult); // it works so i won't touch it lol
 
 		var scaledWidth:Int = Math.round(originalBitmap.width * scaleMult);
@@ -40,13 +42,27 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 		 * we simply round the width/height when multiplied by the scaleMult
 		 * allowing us to use Floats as scaling values!!!
 		 * 
-		 * Just make sure to also round the slice rectangle to avoid inconsistencies!
+		 * just make sure to also round the slice rectangle to avoid inconsistencies!
 		 */
 		var scaledBitmap = new BitmapData(scaledWidth, scaledHeight, true, 0x0);
 		scaledBitmap.draw(originalBitmap, matrix);
 
+		var cacheKey = rawGraphic.key + "_x" + scaleMult;
+
 		// Add the upscaled bitmap to the cache
-		var scaledGraphic = FlxG.bitmap.add(scaledBitmap);
+		var scaledGraphic = FlxG.bitmap.get(cacheKey);
+
+		if(scaledGraphic == null) 
+		{
+			// if no cached version exists, we make one, and save it with a unique key (eg. overlay.png_x2.5)
+			scaledGraphic = FlxG.bitmap.add(scaledBitmap, false, cacheKey);
+		}
+		else
+		{
+			// if we find a cached version, we can safely get rid of the Bitmap to free some memory
+			scaledBitmap.dispose();
+			scaledBitmap = null;
+		}
 
 		// Scale the slice rect accordingly
 		var scaledSliceRect = new FlxRect(
@@ -56,20 +72,16 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 			Math.round(baseSliceRect.height * scaleMult)
 		);
 
-		/**
-		 * If no width and/or height is defined, it will take the original width/height multiplied by the factor!
-		 * So if the original width is 200px and the factor is 2
-		 * Meaning: If no width is specified, the final width of the sprite will be 400px etc...
-		 */
+		// If no width/height are provided, use native scaled size
 		if (width <= 0) width = scaledBitmap.width;
 		if (height <= 0) height = scaledBitmap.height;
 
 		super(scaledGraphic, scaledSliceRect, width, height);
 
-		updateSlicedHitbox();
+		updatedSlicedHitbox();
 	}
 	/**
-		Quick and Easy *(Lazy)* Function to stretch all Elements of the Sprite
+		Quick and Easy (Lazy) Function to stretch all Elements of the Sprite
 	**/
 	public function stretchAll():Void
 	{
@@ -80,7 +92,8 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 		Updates the new hitbox of the sliced sprite.
 		Usually good to call after resizing the sprite.
 	**/
-	public function updateSlicedHitbox() {
+	public function updatedSlicedHitbox() 
+	{
 		updateFramePixels(); // not sure if necessary but i'll keep it on for now
 		updateHitbox();
 		offset.set(0,0);
