@@ -80,19 +80,28 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 
 		updateSlicedHitbox();
 	}
+
 	/**
-		Quick and Easy (Lazy) Function to stretch all Elements of the Sprite
+		Helper to Stretch all Slices in one go
 	**/
 	public function stretchAll():Void
 	{
 		stretchLeft = stretchTop = stretchRight = stretchBottom = stretchCenter = true;
 	}
 
+	/**
+	 * Helper to Tile all Slices in one go
+	 */
 	public function stretchNone():Void
 	{
 		stretchLeft = stretchTop = stretchRight = stretchBottom = stretchCenter = true;
 	}
 
+	/**
+	 * Helper function to resize the width and height of the sprite.
+	 * @param width 
+	 * @param height 
+	 */
 	public function resize(width:Float, height:Float):Void
 	{
 		this.width = width;
