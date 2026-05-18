@@ -101,12 +101,6 @@ scaledSprite.stretchTop = true;
 scaledSprite.stretchCenter = false; // and so on...
 ```
 
-### Checking the Scale
-
-The `scaleMult` used at construction is publicly readable:
-```haxe
-trace(scaledSprite.scaleMult); // e.g. 2
-```
 ## Tween Examples
 
 If you ever want to have fun with Tweens, here's some examples.
