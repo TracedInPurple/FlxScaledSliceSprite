@@ -79,8 +79,8 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 		);
 
 		// If no width/height are provided, use native scaled size
-		if (width <= 0) width = scaledBitmap.width;
-		if (height <= 0) height = scaledBitmap.height;
+		if (width <= 0) width = scaledGraphic.width;
+		if (height <= 0) height = scaledGraphic.height;
 
 		super(scaledGraphic, scaledSliceRect, width, height);
 
