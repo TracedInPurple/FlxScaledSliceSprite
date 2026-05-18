@@ -30,6 +30,12 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 	{
 		// Load the original bitmap/graphic
 		var rawGraphic = FlxG.bitmap.add(asset);
+		
+		if(scaleMult == 1)
+		{
+			super(rawGraphic, baseSliceRect, width, height);
+		}
+
 		var originalBitmap = rawGraphic.bitmap;
 
 		var matrix = new Matrix(scaleMult, 0, 0, scaleMult); // it works so i won't touch it lol
