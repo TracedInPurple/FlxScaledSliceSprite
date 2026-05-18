@@ -32,7 +32,6 @@ Perfect for games with a UI scale setting (think **Minecraft-style scaling**), w
 - Accepts `FlxGraphicAsset` — pass a path, `BitmapData`, or `FlxGraphic` directly
 - Supports `Float` scale multipliers (e.g. `1.5`, `2.5`)
 - Scaled bitmaps are cached — no redundant work if you create multiple instances at the same scale
-- Exposes `scaleMult` as a readable field after construction
 - Built by a HaxeFlixel user for HaxeFlixel users :3
 
 ---
