@@ -100,7 +100,7 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 	 */
 	public function stretchNone():Void
 	{
-		stretchLeft = stretchTop = stretchRight = stretchBottom = stretchCenter = true;
+		stretchLeft = stretchTop = stretchRight = stretchBottom = stretchCenter = false;
 	}
 
 	/**
