@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-    <assets path="images" rename="images" /> <!-- wow -->
+    <assets path="images" rename="images" embed="true"/> <!-- wow -->
 </project>
