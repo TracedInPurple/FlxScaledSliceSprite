@@ -29,7 +29,10 @@ class FlxScaledSliceSprite extends FlxSliceSprite
 	public function new(asset:FlxGraphicAsset, baseSliceRect:FlxRect, scaleMult:Float = 1, width:Float = -1, height:Float = -1) 
 	{
 		// Load the original bitmap/graphic
-		var rawGraphic = FlxG.bitmap.add(asset);
+		var rawGraphic:FlxGraphic = FlxG.bitmap.add(asset);
+
+		if (rawGraphic == null) // If the bitmap/graphic is null
+			rawGraphic = FlxGraphic.fromAssetKey('images/fallback.png'); // Use the fallback image
 		
 		if(scaleMult == 1)
 		{
